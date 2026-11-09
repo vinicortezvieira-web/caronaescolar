@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+{% block conteudo %}
+<h2>Cadastro</h2>
+<form method="post" class="bloco">
+  <label>Nome <input name="nome" required></label>
+  <label>E-mail <input name="email" type="email" required></label>
+  <label>Senha <input name="senha" type="password" required></label>
+  <label>Eu sou
+    <select name="tipo"><option value="passageiro">Passageiro (aluno/responsável)</option><option value="motorista">Motorista</option></select>
+  </label>
+  <button>Cadastrar</button>
+</form>
+{% endblock %}

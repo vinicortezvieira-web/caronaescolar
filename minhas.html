@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+{% block conteudo %}
+{% if usuario.tipo == 'passageiro' %}
+<h2>Minhas reservas</h2>
+{% if not itens %}<p>Você ainda não reservou nenhuma vaga.</p>{% else %}
+<table>
+  <tr><th>Tipo</th><th>Motorista</th><th>Escola</th><th>Saída de</th><th>Horário</th><th></th></tr>
+  {% for i in itens %}
+  <tr><td><span class="tag">{{ i.tipo }}</span></td><td>{{ i.motorista }}</td><td>{{ i.escola }}</td><td>{{ i.origem }}</td><td>{{ i.horario }}</td>
+    <td><form method="post" action="/cancelar/{{ i.id }}"><button>Cancelar</button></form></td></tr>
+  {% endfor %}
+</table>
+{% endif %}
+{% else %}
+<h2>Minhas viagens</h2>
+{% if not itens %}<p>Você ainda não cadastrou viagens.</p>{% else %}
+<table>
+  <tr><th>Tipo</th><th>Escola</th><th>Saída de</th><th>Horário</th><th>Vagas</th><th>Passageiros</th></tr>
+  {% for i in itens %}
+  <tr><td><span class="tag">{{ i.tipo }}</span></td><td>{{ i.escola }}</td><td>{{ i.origem }}</td><td>{{ i.horario }}</td><td>{{ i.vagas }}</td><td>{{ i.passageiros or '—' }}</td></tr>
+  {% endfor %}
+</table>
+{% endif %}
+{% endif %}
+{% endblock %}

@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+{% block conteudo %}
+<h2>Caronas e vans escolares</h2>
+<form method="get">
+  <select name="escola" onchange="this.form.submit()">
+    <option value="">Todas as escolas</option>
+    {% for e in escolas %}<option value="{{ e.id }}" {% if filtro == e.id|string %}selected{% endif %}>{{ e.nome }}</option>{% endfor %}
+  </select>
+</form>
+{% if not viagens %}<p>Nenhuma viagem cadastrada ainda.</p>{% else %}
+<table>
+  <tr><th>Tipo</th><th>Motorista</th><th>Escola</th><th>Saída de</th><th>Horário</th><th>Vagas livres</th><th></th></tr>
+  {% for v in viagens %}
+  <tr>
+    <td><span class="tag">{{ v.tipo }}</span></td>
+    <td>{{ v.motorista }}</td><td>{{ v.escola }}</td><td>{{ v.origem }}</td>
+    <td>{{ v.horario }}</td><td>{{ v.livres }} de {{ v.vagas }}</td>
+    <td>{% if v.livres > 0 and (not usuario or usuario.tipo == 'passageiro') %}
+      <form method="post" action="/reservar/{{ v.id }}"><button>Reservar</button></form>{% endif %}</td>
+  </tr>
+  {% endfor %}
+</table>
+{% endif %}
+{% endblock %}

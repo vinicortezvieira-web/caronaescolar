@@ -1,0 +1,44 @@
+<!doctype html>
+<html lang="pt-br">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>CaronaEscolar</title>
+  <style>
+    :root { --preto: #0d1410; --verde-escuro: #14532d; --verde: #22c55e; --verde-claro: #bbf7d0; --menta: #ecfdf5; --cinza: #1f2a24; }
+    body { font-family: system-ui, sans-serif; max-width: 860px; margin: 0 auto; padding: 16px; color: var(--preto); background: var(--menta); }
+    nav { display: flex; gap: 14px; align-items: center; padding: 12px 16px; background: var(--preto); color: #fff; border-radius: 10px; border-bottom: 4px solid var(--verde); margin-bottom: 20px; }
+    nav .logo { font-weight: 700; font-size: 1.2rem; margin-right: auto; color: var(--verde); }
+    nav a { color: var(--verde-claro); text-decoration: none; }
+    nav a:hover { color: #fff; }
+    h2 { color: var(--verde-escuro); }
+    a { color: var(--verde-escuro); }
+    table { width: 100%; border-collapse: collapse; background: #fff; border-radius: 10px; overflow: hidden; }
+    th { background: var(--verde-escuro); color: #fff; }
+    th, td { text-align: left; padding: 10px; border-bottom: 1px solid var(--verde-claro); }
+    tr:hover td { background: var(--menta); }
+    input, select, button { padding: 8px; margin: 4px 0 12px; font-size: 1rem; border: 1px solid var(--verde-escuro); border-radius: 6px; }
+    form.bloco { background: #fff; padding: 16px; border-radius: 10px; border-left: 6px solid var(--verde); }
+    form.bloco label { display: block; }
+    button { background: var(--verde); color: var(--preto); font-weight: 600; border: 0; cursor: pointer; }
+    button:hover { background: var(--verde-escuro); color: #fff; }
+    .aviso { background: var(--verde-claro); border-left: 6px solid var(--verde-escuro); padding: 10px; border-radius: 6px; margin-bottom: 12px; }
+    .tag { padding: 2px 8px; border-radius: 10px; background: var(--preto); color: var(--verde); font-size: .85rem; }
+  </style>
+</head>
+<body>
+  <nav>
+    <span class="logo">🚌 CaronaEscolar</span>
+    <a href="/">Viagens</a>
+    {% if usuario %}
+      {% if usuario.tipo == 'motorista' %}<a href="/viagens/nova">Oferecer viagem</a>{% endif %}
+      <a href="/minhas">{% if usuario.tipo == 'motorista' %}Minhas viagens{% else %}Minhas reservas{% endif %}</a>
+      <span>{{ usuario.nome }}</span> <a href="/sair">Sair</a>
+    {% else %}
+      <a href="/login">Entrar</a> <a href="/cadastro">Cadastrar</a>
+    {% endif %}
+  </nav>
+  {% for m in get_flashed_messages() %}<div class="aviso">{{ m }}</div>{% endfor %}
+  {% block conteudo %}{% endblock %}
+</body>
+</html>

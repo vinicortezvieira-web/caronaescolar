@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+{% block conteudo %}
+<h2>Oferecer viagem</h2>
+<form method="post" class="bloco">
+  <label>Tipo
+    <select name="tipo"><option value="carona">Carona</option><option value="van">Van escolar</option></select>
+  </label>
+  <label>Escola
+    <select name="escola_id">{% for e in escolas %}<option value="{{ e.id }}">{{ e.nome }}</option>{% endfor %}</select>
+  </label>
+  <label>Saída de (bairro/rua) <input name="origem" required></label>
+  <label>Horário <input name="horario" type="time" required></label>
+  <label>Vagas <input name="vagas" type="number" min="1" max="20" value="3" required></label>
+  <button>Cadastrar viagem</button>
+</form>
+{% endblock %}
